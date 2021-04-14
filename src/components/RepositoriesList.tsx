@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useTypedSelector } from "../hooks/useTypeSelector";
 import { useActions } from "../hooks/useAction";
 
 const RepositoriesList: React.FC = () => {
   const [term, setTerm] = useState("");
   const { searchRepositories } = useActions();
-  const { data, loading, error } = useSelector((state) => state.repositories);
+  const { data, loading, error } = useTypedSelector(
+    (state) => state.repositories
+  );
   // console.log(data, loading, error);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,6 +22,9 @@ const RepositoriesList: React.FC = () => {
         <input value={term} onChange={(e) => setTerm(e.target.value)} />
         <button>Search</button>
       </form>
+      {error && <h3>{error}</h3>}
+      {loading && <h3>Loading...</h3>}
+      {!error && !loading && data.map((name) => <div key={name}>{name}</div>)}
     </div>
   );
 };
