@@ -1,9 +1,16 @@
-import React from 'react';
+import { Provider } from "react-redux";
+import { store } from "../states";
+import RepositoriesList from "./RepositoriesList";
 
 const App = () => {
-    return <div>
-        <h1>Hello there!</h1>
-    </div>
-}
+  return (
+    <Provider store={store}>
+      <div>
+        <h1>Search for a package</h1>
+        <RepositoriesList />
+      </div>
+    </Provider>
+  );
+};
 
 export default App;
